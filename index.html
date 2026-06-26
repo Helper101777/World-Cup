@@ -1,255 +1,880 @@
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>World Cup 2026 – Family Edition</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Family World Cup</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet">
   <style>
+    :root {
+      --gold: #F5C518;
+      --gold-dim: #c9a010;
+      --navy: #0B1A2E;
+      --navy-mid: #112240;
+      --navy-light: #1a3258;
+      --green: #27ae60;
+      --red: #e74c3c;
+      --text: #e8eaf0;
+      --text-muted: #8a9ab5;
+      --border: rgba(245,197,24,0.18);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
     body {
-      font-family: 'Segoe UI', Arial, sans-serif;
-      background: #f4f6f9;
-      margin: 0;
-      padding: 0;
-      color: #333;
+      font-family: 'Inter', sans-serif;
+      background: var(--navy);
+      color: var(--text);
+      min-height: 100vh;
+      overflow-x: hidden;
     }
-    header {
-      background: linear-gradient(135deg, #1e3c72, #2a5298);
-      color: #fff;
-      padding: 40px 20px;
-      text-align: center;
-    }
-    header h1 {
-      margin: 0;
-      font-size: 2.8em;
-    }
-    header p {
-      margin-top: 10px;
-      font-size: 1.2em;
-    }
+
+    /* ─── NAV ─── */
     nav {
-      background: #222;
-      padding: 15px;
-      text-align: center;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(11,26,46,0.96);
+      backdrop-filter: blur(10px);
+      border-bottom: 2px solid var(--gold);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 2rem;
+      height: 60px;
     }
-    nav a {
-      color: #fff;
-      margin: 0 20px;
+    .nav-logo {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.5rem;
+      color: var(--gold);
+      letter-spacing: 2px;
+    }
+    .nav-links { display: flex; gap: 0.3rem; }
+    .nav-links a {
+      color: var(--text-muted);
       text-decoration: none;
-      font-weight: bold;
-      transition: color 0.3s;
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      padding: 6px 12px;
+      border-radius: 4px;
+      transition: all 0.2s;
     }
-    nav a:hover {
-      color: #ffcc00;
+    .nav-links a:hover { color: var(--gold); background: rgba(245,197,24,0.08); }
+
+    /* ─── HERO ─── */
+    .hero {
+      position: relative;
+      text-align: center;
+      padding: 80px 2rem 60px;
+      background: radial-gradient(ellipse at 50% 0%, #1e3a5f 0%, var(--navy) 70%);
+      overflow: hidden;
     }
-    section {
-      padding: 40px 20px;
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: repeating-linear-gradient(
+        0deg, transparent, transparent 59px, rgba(245,197,24,0.04) 59px, rgba(245,197,24,0.04) 60px
+      ),
+      repeating-linear-gradient(
+        90deg, transparent, transparent 59px, rgba(245,197,24,0.04) 59px, rgba(245,197,24,0.04) 60px
+      );
+    }
+    .trophy-icon {
+      font-size: 5rem;
+      line-height: 1;
+      margin-bottom: 1rem;
+      animation: float 3s ease-in-out infinite;
+      position: relative;
+    }
+    @keyframes float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-12px)} }
+
+    .hero-eyebrow {
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 0.75rem;
+      position: relative;
+    }
+    .hero h1 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(3.5rem, 10vw, 7rem);
+      line-height: 0.95;
+      letter-spacing: 3px;
+      color: #fff;
+      position: relative;
+      text-shadow: 0 0 60px rgba(245,197,24,0.3);
+    }
+    .hero h1 span { color: var(--gold); }
+    .hero-sub {
+      margin-top: 1.2rem;
+      color: var(--text-muted);
+      font-size: 1.05rem;
+      position: relative;
+    }
+    .hero-stats {
+      display: flex;
+      justify-content: center;
+      gap: 3rem;
+      margin-top: 3rem;
+      position: relative;
+    }
+    .hero-stat { text-align: center; }
+    .hero-stat .num {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 2.8rem;
+      color: var(--gold);
+      line-height: 1;
+    }
+    .hero-stat .lbl {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      color: var(--text-muted);
+      margin-top: 4px;
+    }
+    .hero-divider {
+      width: 1px;
+      height: 60px;
+      background: var(--border);
+      align-self: center;
+    }
+
+    /* ─── SECTION WRAPPER ─── */
+    .section {
       max-width: 1100px;
-      margin: auto;
+      margin: 0 auto;
+      padding: 60px 2rem;
     }
-    h2 {
-      color: #2a5298;
-      border-bottom: 2px solid #eee;
-      padding-bottom: 10px;
+    .section-header {
+      display: flex;
+      align-items: baseline;
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+    .section-header h2 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 2.2rem;
+      letter-spacing: 2px;
+      color: #fff;
+    }
+    .section-header .line {
+      flex: 1;
+      height: 2px;
+      background: linear-gradient(to right, var(--gold), transparent);
+    }
+    .eyebrow {
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 0.4rem;
+    }
+
+    /* ─── SEASON TABS ─── */
+    .tabs {
+      display: flex;
+      gap: 0.5rem;
+      margin-bottom: 2rem;
+      border-bottom: 2px solid var(--border);
+      padding-bottom: 0;
+    }
+    .tab {
+      padding: 10px 24px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      cursor: pointer;
+      border: none;
+      background: none;
+      color: var(--text-muted);
+      border-bottom: 2px solid transparent;
+      margin-bottom: -2px;
+      transition: all 0.2s;
+    }
+    .tab.active { color: var(--gold); border-bottom-color: var(--gold); }
+    .tab:hover:not(.active) { color: var(--text); }
+    .tab-panel { display: none; }
+    .tab-panel.active { display: block; }
+
+    /* ─── TEAMS GRID ─── */
+    .teams-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+      margin-bottom: 3rem;
+    }
+    .team-card {
+      background: var(--navy-mid);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 2rem;
+      text-align: center;
+      transition: transform 0.2s, border-color 0.2s;
+    }
+    .team-card:hover { transform: translateY(-4px); border-color: var(--gold); }
+    .team-emoji { font-size: 3.5rem; margin-bottom: 0.75rem; }
+    .team-name {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.6rem;
+      letter-spacing: 2px;
+      color: #fff;
+    }
+    .team-manager {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      margin-top: 0.3rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+    .team-badge {
+      display: inline-block;
+      margin-top: 1rem;
+      padding: 3px 12px;
+      border-radius: 20px;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      background: rgba(245,197,24,0.12);
+      color: var(--gold);
+      border: 1px solid rgba(245,197,24,0.3);
+    }
+
+    /* ─── MATCHES TABLE ─── */
+    .match-table-wrap {
+      overflow-x: auto;
+      border-radius: 10px;
+      border: 1px solid var(--border);
     }
     table {
       width: 100%;
       border-collapse: collapse;
-      margin: 20px 0;
-      background: #fff;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
     }
-    table, th, td {
-      border: 1px solid #ddd;
+    thead th {
+      background: var(--navy-light);
+      color: var(--gold);
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      padding: 14px 16px;
+      text-align: left;
+      border-bottom: 2px solid var(--gold);
     }
-    th {
-      background: #2a5298;
-      color: #fff;
+    tbody tr {
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+      transition: background 0.15s;
     }
-    th, td {
-      padding: 12px;
+    tbody tr:hover { background: rgba(245,197,24,0.04); }
+    tbody td {
+      padding: 14px 16px;
+      font-size: 0.9rem;
+      vertical-align: middle;
+    }
+    .round-num {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.1rem;
+      color: var(--gold);
+      letter-spacing: 1px;
+    }
+    .match-teams { font-weight: 600; }
+    .badge-win {
+      display: inline-block;
+      padding: 3px 10px;
+      border-radius: 4px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      background: rgba(39,174,96,0.2);
+      color: #2ecc71;
+      border: 1px solid rgba(39,174,96,0.4);
+    }
+    .badge-tie {
+      display: inline-block;
+      padding: 3px 10px;
+      border-radius: 4px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      background: rgba(241,196,15,0.15);
+      color: #f1c40f;
+      border: 1px solid rgba(241,196,15,0.3);
+    }
+    .badge-tbd {
+      display: inline-block;
+      padding: 3px 10px;
+      border-radius: 4px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      background: rgba(255,255,255,0.05);
+      color: var(--text-muted);
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+    .badge-final {
+      display: inline-block;
+      padding: 3px 10px;
+      border-radius: 4px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      background: rgba(245,197,24,0.18);
+      color: var(--gold);
+      border: 1px solid rgba(245,197,24,0.4);
+    }
+
+    /* ─── STANDINGS ─── */
+    .standings-wrap {
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      overflow: hidden;
+    }
+    .standings-wrap thead th { text-align: center; }
+    .standings-wrap thead th:first-child { text-align: left; }
+    .standings-wrap td { text-align: center; }
+    .standings-wrap td:first-child { text-align: left; }
+    .pos-num {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.1rem;
+      color: var(--text-muted);
+      width: 30px;
+      display: inline-block;
+    }
+    .pos-num.gold { color: var(--gold); }
+    .pos-num.silver { color: #aaa; }
+
+    /* ─── RULES ─── */
+    .rules-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1rem;
+    }
+    .rule-card {
+      background: var(--navy-mid);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1.5rem;
+      display: flex;
+      gap: 1rem;
+      align-items: flex-start;
+    }
+    .rule-icon {
+      font-size: 1.5rem;
+      flex-shrink: 0;
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(245,197,24,0.1);
+      border-radius: 8px;
+    }
+    .rule-text {
+      font-size: 0.9rem;
+      line-height: 1.6;
+      color: var(--text);
+    }
+    .rule-text strong { color: var(--gold); }
+
+    /* ─── HISTORY ─── */
+    .timeline {
+      position: relative;
+      padding-left: 2rem;
+    }
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 8px;
+      bottom: 8px;
+      width: 2px;
+      background: linear-gradient(to bottom, var(--gold), transparent);
+    }
+    .timeline-item {
+      position: relative;
+      margin-bottom: 2.5rem;
+    }
+    .timeline-item::before {
+      content: '';
+      position: absolute;
+      left: -2.4rem;
+      top: 8px;
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: var(--gold);
+      border: 2px solid var(--navy);
+      box-shadow: 0 0 0 3px rgba(245,197,24,0.3);
+    }
+    .timeline-year {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.8rem;
+      color: var(--gold);
+      line-height: 1;
+    }
+    .timeline-title {
+      font-weight: 700;
+      font-size: 1.05rem;
+      margin: 0.3rem 0;
+    }
+    .timeline-desc {
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      line-height: 1.6;
+      margin-top: 0.3rem;
+    }
+    .winner-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      margin-top: 0.75rem;
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      background: rgba(245,197,24,0.15);
+      color: var(--gold);
+      border: 1px solid rgba(245,197,24,0.35);
+    }
+
+    /* ─── ABOUT ─── */
+    .about-box {
+      background: var(--navy-mid);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 2.5rem;
       text-align: center;
     }
-    .winner {
-      background: #c8e6c9;
-      font-weight: bold;
-    }
-    .tie {
-      background: #ffe0b2;
-      font-weight: bold;
-    }
-    ul {
+    .about-box p {
+      max-width: 600px;
+      margin: 0 auto 1rem;
+      font-size: 1rem;
       line-height: 1.8;
+      color: var(--text-muted);
     }
+    .about-box p:last-child { margin-bottom: 0; }
+
+    /* ─── FOOTER ─── */
     footer {
-      background: #222;
-      color: #fff;
+      border-top: 2px solid var(--border);
       text-align: center;
-      padding: 20px;
-      margin-top: 40px;
+      padding: 2rem;
+      color: var(--text-muted);
+      font-size: 0.8rem;
+      letter-spacing: 1px;
     }
-    .highlight {
-      background: #fffae6;
-      border-left: 5px solid #ffcc00;
-      padding: 15px;
-      margin: 20px 0;
+    footer span { color: var(--gold); }
+
+    /* ─── SECTION DIVIDER ─── */
+    .sep {
+      border: none;
+      border-top: 1px solid var(--border);
+      margin: 0;
+    }
+
+    @media (max-width: 640px) {
+      nav { padding: 0 1rem; }
+      .nav-links a { padding: 6px 8px; font-size: 0.7rem; }
+      .hero-stats { gap: 1.5rem; }
+      .hero-divider { display: none; }
     }
   </style>
 </head>
 <body>
 
-<header>
-  <h1>World Cup 2026 – Family Edition</h1>
-  <p>Celebrating our tradition since 2024</p>
-</header>
-
+<!-- NAV -->
 <nav>
-  <a href="#matches">Matches</a>
-  <a href="#rules">Rules</a>
-  <a href="#standings">Standings</a>
-  <a href="#history">History</a>
-  <a href="#players">Players</a>
-  <a href="#about">About</a>
+  <div class="nav-logo">⚽ Family WC</div>
+  <div class="nav-links">
+    <a href="#teams">Teams</a>
+    <a href="#matches">Matches</a>
+    <a href="#standings">Table</a>
+    <a href="#rules">Rules</a>
+    <a href="#history">History</a>
+    <a href="#about">About</a>
+  </div>
 </nav>
 
-<section id="matches">
-  <h2>Match Schedule</h2>
-  <table>
-    <tr>
-      <th>Round</th>
-      <th>Match</th>
-      <th>Date</th>
-      <th>Time</th>
-      <th>Goalie</th>
-      <th>Winner</th>
-      <th>Tie</th>
-    </tr>
-    <tr>
-      <td>Round 1</td>
-      <td>Tyrant Lizard FC 🦖 vs Red Lion FC 🦁</td>
-      <td>Saturday, July 4, 2026</td>
-      <td>5:00 PM</td>
-      <td>Nader</td>
-      <td class="winner">TBD</td>
-      <td>TBD</td>
-    </tr>
-    <tr>
-      <td>Round 2</td>
-      <td>Red Lion FC 🦁 vs Tiger Winners 🐯</td>
-      <td>Sunday, July 12, 2026</td>
-      <td>4:00 PM</td>
-      <td>Nabil</td>
-      <td class="winner">TBD</td>
-      <td>TBD</td>
-    </tr>
-    <tr>
-      <td>Round 3</td>
-      <td>Tyrant Lizard FC 🦖 vs Tiger Winners 🐯</td>
-      <td>Saturday, July 18, 2026</td>
-      <td>6:00 PM</td>
-      <td>Wajih</td>
-      <td class="winner">TBD</td>
-      <td>TBD</td>
-    </tr>
-    <tr>
-      <td>Round 4</td>
-      <td>Tyrant Lizard FC 🦖 vs Red Lion FC 🦁</td>
-      <td>Sunday, July 26, 2026</td>
-      <td>4:00 PM</td>
-      <td>Nader</td>
-      <td class="winner">TBD</td>
-      <td>TBD</td>
-    </tr>
-    <tr>
-      <td>Round 5</td>
-      <td>Tyrant Lizard FC 🦖 vs Tiger Winners 🐯</td>
-      <td>Saturday, August 1, 2026</td>
-      <td>5:00 PM</td>
-      <td>Wajih</td>
-      <td class="winner">TBD</td>
-      <td>TBD</td>
-    </tr>
-    <tr>
-      <td>Round 6</td>
-      <td>Tiger Winners 🐯 vs Red Lion FC 🦁</td>
-      <td>Sunday, August 9, 2026</td>
-      <td>6:00 PM</td>
-      <td>Nabil</td>
-      <td class="winner">TBD</td>
-      <td>TBD</td>
-    </tr>
-    <tr>
-      <td>Round 7</td>
-      <td>Red Lion FC 🦁 vs Tyrant Lizard FC 🦖</td>
-      <td>Saturday, August 16, 2026</td>
-      <td>5:00 PM</td>
-      <td>Nader</td>
-      <td class="winner">TBD</td>
-      <td>TBD</td>
-    </tr>
-    <tr>
-      <td>Final</td>
-      <td>Winner of Round 7 vs Best Runner-Up</td>
-      <td>Sunday, August 23, 2026</td>
-      <td>7:00 PM</td>
-      <td>TBD</td>
-      <td class="winner">TBD</td>
-      <td>TBD</td>
-    </tr>
-  </table>
-</section>
-
-<section id="rules">
-  <h2>World Cup Rules</h2>
-  <ul>
-    <li>Teams face the same opponent for 2 consecutive rounds.</li>
-    <li>The 3rd team not playing acts as goalkeeper.</li>
-    <li>Each save, block, or protection = 1 point.</li>
-    <li>First goal scored = 1 point.</li>
-    <li>5 saves = 1 bonus point.</li>
-    <li>Penalty save = 1 point.</li>
-    <li>Red and yellow cards can be given.</li>
-    <li>Standard football rules apply.</li>
-  </ul>
-</section>
-
-<section id="standings">
-  <h2>Standings</h2>
-  <table>
-    <tr>
-      <th>Team</th>
-      <th>Points</th>
-      <th>Goals</th>
-      <th>Saves</th>
-    </tr>
-    <tr>
-      <td>Tyrant Lizard FC</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-    </tr>
-    <tr>
-      <td>Red Lion FC</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-    </tr>
-    <tr>
-      <td>Tiger Winners</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-    </tr>
-  </table>
-</section>
-
-<section id="history">
-  <h2>World Cup History</h2>
-  <div class="highlight">
-    <p><strong>2024:</strong> First edition with 2 teams. Winner: You.</p>
-    <p><strong>2025:</strong> Expanded to 3 brothers. Winner: You again.</p>
-    <p><strong>2026:</strong> Upcoming edition with new excitement and challenges.</p>
+<!-- HERO -->
+<div class="hero">
+  <div class="trophy-icon">🏆</div>
+  <div class="hero-eyebrow">Est. 2024 · The Family Tournament</div>
+  <h1>Family<br><span>World Cup</span></h1>
+  <p class="hero-sub">Where legends are made in the backyard.</p>
+  <div class="hero-stats">
+    <div class="hero-stat">
+      <div class="num">3</div>
+      <div class="lbl">Seasons</div>
+    </div>
+    <div class="hero-divider"></div>
+    <div class="hero-stat">
+      <div class="num">3</div>
+      <div class="lbl">Teams</div>
+    </div>
+    <div class="hero-divider"></div>
+    <div class="hero-stat">
+      <div class="num">32</div>
+      <div class="lbl">Total Rounds</div>
+    </div>
+    <div class="hero-divider"></div>
+    <div class="hero-stat">
+      <div class="num">2026</div>
+      <div class="lbl">Current Season</div>
+    </div>
   </div>
-</section>
+</div>
 
-<section
+<!-- TEAMS -->
+<div id="teams" class="section">
+  <div class="eyebrow">The Clubs</div>
+  <div class="section-header">
+    <h2>Teams</h2>
+    <div class="line"></div>
+  </div>
+
+  <div class="tabs" id="teamTabs">
+    <button class="tab active" data-tab="teams2026">2026 Season</button>
+    <button class="tab" data-tab="teams2025">2025 Season</button>
+  </div>
+
+  <div id="teams2026" class="tab-panel active">
+    <div class="teams-grid">
+      <div class="team-card">
+        <div class="team-emoji">🦖</div>
+        <div class="team-name">Tyrant Lizard FC</div>
+        <div class="team-manager">Manager: Wajih</div>
+        <div class="team-badge">Active · 2026</div>
+      </div>
+      <div class="team-card">
+        <div class="team-emoji">🦁</div>
+        <div class="team-name">Red Lion FC</div>
+        <div class="team-manager">Manager: Nader</div>
+        <div class="team-badge">Active · 2026</div>
+      </div>
+      <div class="team-card">
+        <div class="team-emoji">🐯</div>
+        <div class="team-name">Tiger Winners</div>
+        <div class="team-manager">Manager: Nabil</div>
+        <div class="team-badge">Active · 2026</div>
+      </div>
+    </div>
+  </div>
+
+  <div id="teams2025" class="tab-panel">
+    <div class="teams-grid">
+      <div class="team-card">
+        <div class="team-emoji">🦅</div>
+        <div class="team-name">United Phoenix FC</div>
+        <div class="team-manager">2025 Participant</div>
+        <div class="team-badge">2025 Season</div>
+      </div>
+      <div class="team-card">
+        <div class="team-emoji">🐯</div>
+        <div class="team-name">Tiger Winners</div>
+        <div class="team-manager">2025 Participant</div>
+        <div class="team-badge">2025 Season</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<hr class="sep">
+
+<!-- MATCHES -->
+<div id="matches" class="section">
+  <div class="eyebrow">Schedule & Results</div>
+  <div class="section-header">
+    <h2>Matches</h2>
+    <div class="line"></div>
+  </div>
+
+  <div class="tabs" id="matchTabs">
+    <button class="tab active" data-tab="matches2026">2026 Season</button>
+    <button class="tab" data-tab="matches2025">2025 Season</button>
+  </div>
+
+  <!-- 2026 Matches -->
+  <div id="matches2026" class="tab-panel active">
+    <div class="match-table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Round</th>
+            <th>Match</th>
+            <th>Date</th>
+            <th>Time</th>
+            <th>Goalie</th>
+            <th>Result</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span class="round-num">R1</span></td>
+            <td class="match-teams">🦖 Tyrant Lizard FC <strong>vs</strong> 🦁 Red Lion FC</td>
+            <td>Sat, Jul 4 2026</td>
+            <td>5:00 PM</td>
+            <td>Nader 🦁</td>
+            <td><span class="badge-tbd">TBD</span></td>
+          </tr>
+          <tr>
+            <td><span class="round-num">R2</span></td>
+            <td class="match-teams">🦁 Red Lion FC <strong>vs</strong> 🐯 Tiger Winners</td>
+            <td>Sun, Jul 12 2026</td>
+            <td>4:00 PM</td>
+            <td>Nabil 🐯</td>
+            <td><span class="badge-tbd">TBD</span></td>
+          </tr>
+          <tr>
+            <td><span class="round-num">R3</span></td>
+            <td class="match-teams">🦖 Tyrant Lizard FC <strong>vs</strong> 🐯 Tiger Winners</td>
+            <td>Sat, Jul 18 2026</td>
+            <td>6:00 PM</td>
+            <td>Wajih 🦖</td>
+            <td><span class="badge-tbd">TBD</span></td>
+          </tr>
+          <tr>
+            <td><span class="round-num">R4</span></td>
+            <td class="match-teams">🦖 Tyrant Lizard FC <strong>vs</strong> 🦁 Red Lion FC</td>
+            <td>Sun, Jul 26 2026</td>
+            <td>4:00 PM</td>
+            <td>Nader 🦁</td>
+            <td><span class="badge-tbd">TBD</span></td>
+          </tr>
+          <tr>
+            <td><span class="round-num">R5</span></td>
+            <td class="match-teams">🦖 Tyrant Lizard FC <strong>vs</strong> 🐯 Tiger Winners</td>
+            <td>Sat, Aug 1 2026</td>
+            <td>5:00 PM</td>
+            <td>Wajih 🦖</td>
+            <td><span class="badge-tbd">TBD</span></td>
+          </tr>
+          <tr>
+            <td><span class="round-num">R6</span></td>
+            <td class="match-teams">🐯 Tiger Winners <strong>vs</strong> 🦁 Red Lion FC</td>
+            <td>Sun, Aug 9 2026</td>
+            <td>6:00 PM</td>
+            <td>Nabil 🐯</td>
+            <td><span class="badge-tbd">TBD</span></td>
+          </tr>
+          <tr>
+            <td><span class="round-num">R7</span></td>
+            <td class="match-teams">🦁 Red Lion FC <strong>vs</strong> 🦖 Tyrant Lizard FC</td>
+            <td>Sat, Aug 16 2026</td>
+            <td>5:00 PM</td>
+            <td>Nader 🦁</td>
+            <td><span class="badge-tbd">TBD</span></td>
+          </tr>
+          <tr style="background: rgba(245,197,24,0.04);">
+            <td><span class="round-num" style="color:#f1c40f;">FINAL</span></td>
+            <td class="match-teams">🏆 Winner R7 <strong>vs</strong> Best Runner-Up</td>
+            <td>Sun, Aug 23 2026</td>
+            <td>7:00 PM</td>
+            <td>TBD</td>
+            <td><span class="badge-final">FINAL</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- 2025 Matches -->
+  <div id="matches2025" class="tab-panel">
+    <div class="match-table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Round</th>
+            <th>Match</th>
+            <th>Game Time</th>
+            <th>Result</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td><span class="round-num">R1</span></td><td class="match-teams">🦅 United Phoenix FC <strong>vs</strong> 🐯 Tiger Winners</td><td>1.5 Hr</td><td><span class="badge-tbd">—</span></td></tr>
+          <tr><td><span class="round-num">R2</span></td><td class="match-teams">🦅 United Phoenix FC <strong>vs</strong> 🐯 Tiger Winners</td><td>1.5 Hr</td><td><span class="badge-tbd">—</span></td></tr>
+          <tr><td><span class="round-num">R3</span></td><td class="match-teams">🐯 Tiger Winners <strong>vs</strong> —</td><td>1.5 Hr</td><td><span class="badge-tbd">—</span></td></tr>
+          <tr><td><span class="round-num">R4</span></td><td class="match-teams">🐯 Tiger Winners <strong>vs</strong> —</td><td>1.5 Hr</td><td><span class="badge-tbd">—</span></td></tr>
+          <tr><td><span class="round-num">R5</span></td><td class="match-teams">🦅 United Phoenix FC <strong>vs</strong> —</td><td>1.5 Hr</td><td><span class="badge-tbd">—</span></td></tr>
+          <tr><td><span class="round-num">R6</span></td><td class="match-teams">🦅 United Phoenix FC <strong>vs</strong> —</td><td>1.5 Hr</td><td><span class="badge-tbd">—</span></td></tr>
+          <tr><td><span class="round-num">R7</span></td><td class="match-teams">🐯 Tiger Winners <strong>vs</strong> 🦅 United Phoenix FC</td><td>1.5 Hr</td><td><span class="badge-tbd">—</span></td></tr>
+          <tr><td><span class="round-num">R8</span></td><td class="match-teams">🐯 Tiger Winners <strong>vs</strong> 🦅 United Phoenix FC</td><td>1.5 Hr</td><td><span class="badge-tbd">—</span></td></tr>
+          <tr><td><span class="round-num">R9</span></td><td class="match-teams">🐯 Tiger Winners <strong>vs</strong> —</td><td>1.5 Hr</td><td><span class="badge-tbd">—</span></td></tr>
+          <tr><td><span class="round-num">R10</span></td><td class="match-teams">🐯 Tiger Winners <strong>vs</strong> —</td><td>1.5 Hr</td><td><span class="badge-tbd">—</span></td></tr>
+          <tr><td><span class="round-num">R11</span></td><td class="match-teams">🦅 United Phoenix FC <strong>vs</strong> —</td><td>1.5 Hr</td><td><span class="badge-tbd">—</span></td></tr>
+          <tr><td><span class="round-num">R12</span></td><td class="match-teams">🦅 United Phoenix FC <strong>vs</strong> —</td><td>1.5 Hr</td><td><span class="badge-tbd">—</span></td></tr>
+          <tr><td><span class="round-num">R13</span></td><td class="match-teams">🦅 United Phoenix FC <strong>vs</strong> 🐯 Tiger Winners</td><td>1.5 Hr</td><td><span class="badge-tbd">—</span></td></tr>
+          <tr><td><span class="round-num">R14</span></td><td class="match-teams">🦅 United Phoenix FC <strong>vs</strong> —</td><td>1.5 Hr</td><td><span class="badge-tbd">—</span></td></tr>
+          <tr><td><span class="round-num" style="color:#f1c40f;">SF</span></td><td class="match-teams">Qualifier A <strong>vs</strong> Qualifier B</td><td>1.5 Hr</td><td><span class="badge-final">Semi-Final</span></td></tr>
+          <tr style="background: rgba(245,197,24,0.04);"><td><span class="round-num" style="color:#f1c40f;">GF</span></td><td class="match-teams">🏆 Grand Final</td><td>1.5 Hr</td><td><span class="badge-final">FINAL</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p style="color:var(--text-muted);font-size:0.82rem;margin-top:1rem;font-style:italic;">* Some 2025 opponents are marked as — where records were incomplete. Fill in your own records!</p>
+  </div>
+</div>
+
+<hr class="sep">
+
+<!-- STANDINGS -->
+<div id="standings" class="section">
+  <div class="eyebrow">2026 League Table</div>
+  <div class="section-header">
+    <h2>Standings</h2>
+    <div class="line"></div>
+  </div>
+  <div class="standings-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Team</th>
+          <th>Pts</th>
+          <th>Goals</th>
+          <th>Saves</th>
+          <th>Bonus Pts</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><span class="pos-num gold">1</span></td>
+          <td><strong>🦖 Tyrant Lizard FC</strong></td>
+          <td>—</td><td>—</td><td>—</td><td>—</td>
+        </tr>
+        <tr>
+          <td><span class="pos-num silver">2</span></td>
+          <td><strong>🦁 Red Lion FC</strong></td>
+          <td>—</td><td>—</td><td>—</td><td>—</td>
+        </tr>
+        <tr>
+          <td><span class="pos-num">3</span></td>
+          <td><strong>🐯 Tiger Winners</strong></td>
+          <td>—</td><td>—</td><td>—</td><td>—</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <p style="color:var(--text-muted);font-size:0.82rem;margin-top:1rem;font-style:italic;">* Season kicks off July 4, 2026 — standings will update after each round.</p>
+</div>
+
+<hr class="sep">
+
+<!-- RULES -->
+<div id="rules" class="section">
+  <div class="eyebrow">How We Play</div>
+  <div class="section-header">
+    <h2>Rules</h2>
+    <div class="line"></div>
+  </div>
+  <div class="rules-grid">
+    <div class="rule-card">
+      <div class="rule-icon">🔁</div>
+      <div class="rule-text"><strong>Consecutive Rounds:</strong> 2 teams face the same opponent for 2 rounds in a row before rotating.</div>
+    </div>
+    <div class="rule-card">
+      <div class="rule-icon">🧤</div>
+      <div class="rule-text"><strong>Rotating Goalkeeper:</strong> The 3rd team not playing in those 2 rounds serves as the goalkeeper.</div>
+    </div>
+    <div class="rule-card">
+      <div class="rule-icon">⚡</div>
+      <div class="rule-text"><strong>First Goal:</strong> Whoever scores first in an attacking round earns <strong>1 point</strong>.</div>
+    </div>
+    <div class="rule-card">
+      <div class="rule-icon">🛡️</div>
+      <div class="rule-text"><strong>Saves & Blocks:</strong> Every save, block, or protection = <strong>1 point</strong>. Penalty save = <strong>1 bonus point</strong>.</div>
+    </div>
+    <div class="rule-card">
+      <div class="rule-icon">⭐</div>
+      <div class="rule-text"><strong>Save Streak Bonus:</strong> Achieve <strong>5 saves</strong> in a game and earn an extra <strong>+1 bonus point</strong>.</div>
+    </div>
+    <div class="rule-card">
+      <div class="rule-icon">🟨</div>
+      <div class="rule-text"><strong>Cards:</strong> Red and yellow cards can be issued. Standard football rules apply for fouls and conduct.</div>
+    </div>
+    <div class="rule-card">
+      <div class="rule-icon">🏆</div>
+      <div class="rule-text"><strong>Playoffs (R15 & R16):</strong> Winner of R13 qualifies for R15. Winner of R14 advances too. R15 winner faces the loser from R13/14 in the Final.</div>
+    </div>
+    <div class="rule-card">
+      <div class="rule-icon">⚽</div>
+      <div class="rule-text"><strong>Standard Football Rules:</strong> All regular football rules apply outside of these custom additions.</div>
+    </div>
+  </div>
+</div>
+
+<hr class="sep">
+
+<!-- HISTORY -->
+<div id="history" class="section">
+  <div class="eyebrow">The Story So Far</div>
+  <div class="section-header">
+    <h2>Tournament History</h2>
+    <div class="line"></div>
+  </div>
+  <div class="timeline">
+    <div class="timeline-item">
+      <div class="timeline-year">2024</div>
+      <div class="timeline-title">The First Edition — Where It All Began</div>
+      <div class="timeline-desc">The very first Family World Cup kicked off with 2 teams going head-to-head. A new tradition was born in the backyard, with friendly rivalry and competitive spirit that would only grow from here.</div>
+      <div class="winner-badge">🏆 1st Champion Crowned</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-year">2025</div>
+      <div class="timeline-title">The Expansion — A Third Team Joins</div>
+      <div class="timeline-desc">United Phoenix FC and Tiger Winners returned with fresh energy. The tournament grew to a full 16-round format with a semi-final and grand final, bringing a proper knockout structure. More rounds, more drama, more bragging rights.</div>
+      <div class="winner-badge">🏆 2nd Champion Crowned</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-year">2026</div>
+      <div class="timeline-title">The New Era — Three Teams, Eight Rounds</div>
+      <div class="timeline-desc">A brand new lineup enters the pitch: Tyrant Lizard FC 🦖, Red Lion FC 🦁, and Tiger Winners 🐯. With a rotating goalkeeper system, bonus save points, and playoff drama across 8 rounds — this is the biggest edition yet. Season starts July 4th.</div>
+      <div class="winner-badge" style="background:rgba(245,197,24,0.06);color:var(--text-muted);border-color:rgba(255,255,255,0.15);">⏳ Season In Progress</div>
+    </div>
+  </div>
+</div>
+
+<hr class="sep">
+
+<!-- ABOUT -->
+<div id="about" class="section">
+  <div class="eyebrow">The Spirit of the Game</div>
+  <div class="section-header">
+    <h2>About</h2>
+    <div class="line"></div>
+  </div>
+  <div class="about-box">
+    <div style="font-size:3rem;margin-bottom:1rem;">👨‍👩‍👦‍👦</div>
+    <p>The Family World Cup is our very own football tradition — played between brothers, built on competition, and kept alive by the love of the game.</p>
+    <p>Started in 2024 with just 2 players and a simple idea, it has grown into a full tournament with custom rules, rotating goalkeepers, bonus point systems, and a playoff bracket that would make any football association proud.</p>
+    <p>Every goal, every save, every yellow card is part of the story. This site is where we keep the record straight.</p>
+    <div style="margin-top:1.5rem;color:var(--gold);font-family:'Bebas Neue',sans-serif;font-size:1.2rem;letter-spacing:2px;">Est. 2024 · The Beautiful Game · Our Way</div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  Made with ⚽ · Family World Cup · <span>Est. 2024</span> · Season 3 underway
+</footer>
+
+<script>
+  // Tab switching — generic
+  document.querySelectorAll('.tabs').forEach(tabGroup => {
+    tabGroup.querySelectorAll('.tab').forEach(tab => {
+      tab.addEventListener('click', () => {
+        const targetId = tab.dataset.tab;
+        // Deactivate all in this group
+        tabGroup.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+        // Find sibling panels (next sibling container)
+        const panels = tabGroup.parentElement.querySelectorAll('.tab-panel');
+        panels.forEach(p => p.classList.remove('active'));
+        // Activate chosen
+        tab.classList.add('active');
+        document.getElementById(targetId).classList.add('active');
+      });
+    });
+  });
+</script>
+</body>
+</html>
