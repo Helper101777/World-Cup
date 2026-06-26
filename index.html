@@ -475,7 +475,310 @@
       margin: 0;
     }
 
-    @media (max-width: 640px) {
+    /* ─── STATS ─── */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.5rem;
+    }
+    .stat-card {
+      background: var(--navy-mid);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+    }
+    .stat-card-header {
+      background: var(--navy-light);
+      padding: 14px 20px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      border-bottom: 2px solid var(--gold);
+    }
+    .stat-card-header .player-emoji { font-size: 1.4rem; }
+    .stat-card-header .player-name {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.3rem;
+      letter-spacing: 1px;
+    }
+    .stat-card-header .player-team {
+      margin-left: auto;
+      font-size: 0.7rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+    .stat-rows { padding: 6px 0; }
+    .stat-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 20px;
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+    }
+    .stat-row:last-child { border-bottom: none; }
+    .stat-label {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .stat-val {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.3rem;
+      color: var(--gold);
+    }
+    .stat-bar-wrap {
+      width: 100px;
+      height: 6px;
+      background: rgba(255,255,255,0.08);
+      border-radius: 3px;
+      overflow: hidden;
+      margin-left: 10px;
+    }
+    .stat-bar {
+      height: 100%;
+      border-radius: 3px;
+      background: linear-gradient(to right, var(--gold), #e67e22);
+    }
+
+    /* ─── AWARDS ─── */
+    .awards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1.2rem;
+    }
+    .award-card {
+      background: var(--navy-mid);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.8rem 1.5rem;
+      text-align: center;
+      transition: transform 0.2s, border-color 0.2s;
+    }
+    .award-card:hover { transform: translateY(-4px); border-color: var(--gold); }
+    .award-icon { font-size: 2.5rem; margin-bottom: 0.6rem; }
+    .award-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.1rem;
+      letter-spacing: 1px;
+      color: var(--gold);
+      margin-bottom: 0.3rem;
+    }
+    .award-winner {
+      font-weight: 700;
+      font-size: 1rem;
+      margin-bottom: 0.2rem;
+    }
+    .award-desc { font-size: 0.78rem; color: var(--text-muted); line-height: 1.5; }
+    .award-season {
+      display: inline-block;
+      margin-top: 0.8rem;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 1px;
+      color: var(--text-muted);
+      background: rgba(255,255,255,0.05);
+      padding: 3px 10px;
+      border-radius: 20px;
+    }
+
+    /* ─── RIVALRY ─── */
+    .rivalry-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.5rem;
+    }
+    .rivalry-card {
+      background: var(--navy-mid);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.5rem;
+    }
+    .rivalry-header {
+      text-align: center;
+      font-size: 1rem;
+      font-weight: 700;
+      margin-bottom: 1.2rem;
+      color: var(--text-muted);
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+    .rivalry-teams {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 1rem;
+    }
+    .rivalry-team { text-align: center; flex: 1; }
+    .rivalry-team-emoji { font-size: 2rem; }
+    .rivalry-team-name { font-size: 0.75rem; color: var(--text-muted); margin-top: 4px; }
+    .rivalry-score {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 2.5rem;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      letter-spacing: 2px;
+    }
+    .rivalry-score span { color: var(--text-muted); font-size: 1.5rem; }
+    .rivalry-bar-wrap {
+      height: 8px;
+      border-radius: 4px;
+      overflow: hidden;
+      background: rgba(255,255,255,0.07);
+      display: flex;
+      margin-top: 0.5rem;
+    }
+    .rivalry-bar-a { background: #3498db; transition: width 0.6s ease; }
+    .rivalry-bar-b { background: #e74c3c; transition: width 0.6s ease; }
+    .rivalry-labels {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 6px;
+      font-size: 0.72rem;
+      color: var(--text-muted);
+    }
+
+    /* ─── COUNTDOWN ─── */
+    .countdown-box {
+      background: var(--navy-mid);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 3rem 2rem;
+      text-align: center;
+    }
+    .countdown-match {
+      font-size: 1.1rem;
+      font-weight: 700;
+      margin-bottom: 0.3rem;
+    }
+    .countdown-date {
+      color: var(--text-muted);
+      font-size: 0.85rem;
+      margin-bottom: 2rem;
+    }
+    .countdown-timer {
+      display: flex;
+      justify-content: center;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+    }
+    .countdown-unit { text-align: center; }
+    .countdown-num {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 4rem;
+      color: var(--gold);
+      line-height: 1;
+      background: var(--navy-light);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 10px 20px;
+      min-width: 90px;
+      display: block;
+    }
+    .countdown-lbl {
+      font-size: 0.65rem;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      color: var(--text-muted);
+      margin-top: 8px;
+    }
+
+    /* ─── GALLERY ─── */
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 1rem;
+    }
+    .gallery-item {
+      background: var(--navy-mid);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      overflow: hidden;
+      transition: transform 0.2s;
+      cursor: pointer;
+    }
+    .gallery-item:hover { transform: scale(1.02); border-color: var(--gold); }
+    .gallery-placeholder {
+      height: 180px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      font-size: 2.5rem;
+      background: linear-gradient(135deg, var(--navy-light), var(--navy-mid));
+      color: var(--text-muted);
+      gap: 0.5rem;
+    }
+    .gallery-placeholder p {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+    .gallery-caption {
+      padding: 10px 14px;
+      font-size: 0.82rem;
+      color: var(--text-muted);
+    }
+    .gallery-caption strong { color: var(--text); display: block; margin-bottom: 2px; }
+    .gallery-upload-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 1.5rem;
+      padding: 12px 24px;
+      background: rgba(245,197,24,0.1);
+      border: 1px solid rgba(245,197,24,0.35);
+      border-radius: 8px;
+      color: var(--gold);
+      font-size: 0.85rem;
+      font-weight: 700;
+      letter-spacing: 1px;
+      cursor: pointer;
+      text-transform: uppercase;
+      transition: background 0.2s;
+    }
+    .gallery-upload-btn:hover { background: rgba(245,197,24,0.18); }
+
+    /* ─── BANTER ─── */
+    .banter-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.2rem;
+    }
+    .banter-card {
+      background: var(--navy-mid);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.5rem;
+      position: relative;
+    }
+    .banter-quote {
+      font-size: 2.5rem;
+      color: var(--gold);
+      opacity: 0.4;
+      line-height: 0.8;
+      margin-bottom: 0.5rem;
+    }
+    .banter-text {
+      font-size: 0.95rem;
+      line-height: 1.6;
+      font-style: italic;
+      color: var(--text);
+    }
+    .banter-author {
+      margin-top: 1rem;
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: var(--gold);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+    .banter-author span { color: var(--text-muted); font-weight: 400; }
       nav { padding: 0 1rem; }
       .nav-links a { padding: 6px 8px; font-size: 0.7rem; }
       .hero-stats { gap: 1.5rem; }
@@ -492,9 +795,14 @@
     <a href="#teams">Teams</a>
     <a href="#matches">Matches</a>
     <a href="#standings">Table</a>
+    <a href="#stats">Stats</a>
+    <a href="#awards">Awards</a>
+    <a href="#rivalry">Rivalry</a>
+    <a href="#countdown">Next Match</a>
+    <a href="#gallery">Gallery</a>
+    <a href="#banter">Banter</a>
     <a href="#rules">Rules</a>
     <a href="#history">History</a>
-    <a href="#about">About</a>
   </div>
 </nav>
 
@@ -757,7 +1065,405 @@
 
 <hr class="sep">
 
-<!-- HISTORY -->
+<hr class="sep">
+
+<!-- PLAYER STATS -->
+<div id="stats" class="section">
+  <div class="eyebrow">All-Time Numbers</div>
+  <div class="section-header">
+    <h2>Player Stats</h2>
+    <div class="line"></div>
+  </div>
+  <div class="stats-grid">
+
+    <!-- Nabil -->
+    <div class="stat-card">
+      <div class="stat-card-header">
+        <div class="player-emoji">🦖</div>
+        <div class="player-name">Nabil</div>
+        <div class="player-team">Tyrant Lizard FC · 2026</div>
+      </div>
+      <div class="stat-rows">
+        <div class="stat-row">
+          <div class="stat-label">⚽ Goals Scored</div>
+          <div style="display:flex;align-items:center;gap:8px">
+            <div class="stat-bar-wrap"><div class="stat-bar" style="width:90%"></div></div>
+            <div class="stat-val">—</div>
+          </div>
+        </div>
+        <div class="stat-row">
+          <div class="stat-label">🧤 Saves (as Goalie)</div>
+          <div style="display:flex;align-items:center;gap:8px">
+            <div class="stat-bar-wrap"><div class="stat-bar" style="width:80%"></div></div>
+            <div class="stat-val">—</div>
+          </div>
+        </div>
+        <div class="stat-row">
+          <div class="stat-label">🟨 Yellow Cards</div>
+          <div class="stat-val" style="color:#f1c40f">—</div>
+        </div>
+        <div class="stat-row">
+          <div class="stat-label">🟥 Red Cards</div>
+          <div class="stat-val" style="color:#e74c3c">—</div>
+        </div>
+        <div class="stat-row">
+          <div class="stat-label">🏆 Seasons Won</div>
+          <div class="stat-val">2</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Wajih -->
+    <div class="stat-card">
+      <div class="stat-card-header">
+        <div class="player-emoji">🦁</div>
+        <div class="player-name">Wajih</div>
+        <div class="player-team">Red Lion FC · 2025–2026</div>
+      </div>
+      <div class="stat-rows">
+        <div class="stat-row">
+          <div class="stat-label">⚽ Goals Scored</div>
+          <div style="display:flex;align-items:center;gap:8px">
+            <div class="stat-bar-wrap"><div class="stat-bar" style="width:40%"></div></div>
+            <div class="stat-val">—</div>
+          </div>
+        </div>
+        <div class="stat-row">
+          <div class="stat-label">🧤 Saves (as Goalie)</div>
+          <div style="display:flex;align-items:center;gap:8px">
+            <div class="stat-bar-wrap"><div class="stat-bar" style="width:55%"></div></div>
+            <div class="stat-val">—</div>
+          </div>
+        </div>
+        <div class="stat-row">
+          <div class="stat-label">🟨 Yellow Cards</div>
+          <div class="stat-val" style="color:#f1c40f">—</div>
+        </div>
+        <div class="stat-row">
+          <div class="stat-label">🟥 Red Cards</div>
+          <div class="stat-val" style="color:#e74c3c">—</div>
+        </div>
+        <div class="stat-row">
+          <div class="stat-label">🏆 Seasons Won</div>
+          <div class="stat-val">0</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Nader -->
+    <div class="stat-card">
+      <div class="stat-card-header">
+        <div class="player-emoji">🐯</div>
+        <div class="player-name">Nader</div>
+        <div class="player-team">Tiger Winners · 2026</div>
+      </div>
+      <div class="stat-rows">
+        <div class="stat-row">
+          <div class="stat-label">⚽ Goals Scored</div>
+          <div style="display:flex;align-items:center;gap:8px">
+            <div class="stat-bar-wrap"><div class="stat-bar" style="width:30%"></div></div>
+            <div class="stat-val">—</div>
+          </div>
+        </div>
+        <div class="stat-row">
+          <div class="stat-label">🧤 Saves (as Goalie)</div>
+          <div style="display:flex;align-items:center;gap:8px">
+            <div class="stat-bar-wrap"><div class="stat-bar" style="width:50%"></div></div>
+            <div class="stat-val">—</div>
+          </div>
+        </div>
+        <div class="stat-row">
+          <div class="stat-label">🟨 Yellow Cards</div>
+          <div class="stat-val" style="color:#f1c40f">—</div>
+        </div>
+        <div class="stat-row">
+          <div class="stat-label">🟥 Red Cards</div>
+          <div class="stat-val" style="color:#e74c3c">—</div>
+        </div>
+        <div class="stat-row">
+          <div class="stat-label">🏆 Seasons Won</div>
+          <div class="stat-val">0</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+  <p style="color:var(--text-muted);font-size:0.82rem;margin-top:1.2rem;font-style:italic;">* Stats will fill in as the 2026 season plays out. Nabil's 2 championship wins are confirmed.</p>
+</div>
+
+<hr class="sep">
+
+<!-- AWARDS -->
+<div id="awards" class="section">
+  <div class="eyebrow">Honours & Glory</div>
+  <div class="section-header">
+    <h2>Awards</h2>
+    <div class="line"></div>
+  </div>
+  <div class="awards-grid">
+
+    <div class="award-card">
+      <div class="award-icon">👟</div>
+      <div class="award-title">Golden Boot</div>
+      <div class="award-winner">Nabil</div>
+      <div class="award-desc">Top goal scorer across both completed seasons</div>
+      <div class="award-season">2024 · 2025</div>
+    </div>
+
+    <div class="award-card">
+      <div class="award-icon">🧤</div>
+      <div class="award-title">Golden Glove</div>
+      <div class="award-winner">TBD</div>
+      <div class="award-desc">Best goalkeeper performance across all rounds</div>
+      <div class="award-season">2026 Season</div>
+    </div>
+
+    <div class="award-card">
+      <div class="award-icon">⭐</div>
+      <div class="award-title">MVP</div>
+      <div class="award-winner">Nabil</div>
+      <div class="award-desc">Most Valuable Player — dominated 2025 with 14 round wins</div>
+      <div class="award-season">2025 Season</div>
+    </div>
+
+    <div class="award-card">
+      <div class="award-icon">🏆</div>
+      <div class="award-title">Champion</div>
+      <div class="award-winner">Nabil × 2</div>
+      <div class="award-desc">Back-to-back Family World Cup champion. The dynasty begins.</div>
+      <div class="award-season">2024 · 2025</div>
+    </div>
+
+    <div class="award-card">
+      <div class="award-icon">💪</div>
+      <div class="award-title">Iron Wall</div>
+      <div class="award-winner">TBD</div>
+      <div class="award-desc">Most penalty saves in a single season</div>
+      <div class="award-season">2026 Season</div>
+    </div>
+
+    <div class="award-card">
+      <div class="award-icon">🔥</div>
+      <div class="award-title">Comeback King</div>
+      <div class="award-winner">Wajih</div>
+      <div class="award-desc">Stole 2 rounds from the reigning champion in 2025. Not done yet.</div>
+      <div class="award-season">2025 Season</div>
+    </div>
+
+  </div>
+</div>
+
+<hr class="sep">
+
+<!-- RIVALRY TRACKER -->
+<div id="rivalry" class="section">
+  <div class="eyebrow">All-Time Head-to-Head</div>
+  <div class="section-header">
+    <h2>Rivalry Tracker</h2>
+    <div class="line"></div>
+  </div>
+  <div class="rivalry-grid">
+
+    <div class="rivalry-card">
+      <div class="rivalry-header">Classic Rivalry · Since 2025</div>
+      <div class="rivalry-teams">
+        <div class="rivalry-team">
+          <div class="rivalry-team-emoji">🦅</div>
+          <div class="rivalry-team-name">United Phoenix / Tyrant Lizard<br><small>(Nabil)</small></div>
+        </div>
+        <div class="rivalry-score">
+          <span id="score-nabil-v-wajih-a">14</span>
+          <span>–</span>
+          <span id="score-nabil-v-wajih-b">2</span>
+        </div>
+        <div class="rivalry-team">
+          <div class="rivalry-team-emoji">🦁</div>
+          <div class="rivalry-team-name">Red Lion FC<br><small>(Wajih)</small></div>
+        </div>
+      </div>
+      <div class="rivalry-bar-wrap">
+        <div class="rivalry-bar-a" style="width:87.5%"></div>
+        <div class="rivalry-bar-b" style="width:12.5%"></div>
+      </div>
+      <div class="rivalry-labels">
+        <span>🦅 Nabil — 14 wins</span>
+        <span>Wajih — 2 wins 🦁</span>
+      </div>
+    </div>
+
+    <div class="rivalry-card">
+      <div class="rivalry-header">New Rivalry · 2026 Season</div>
+      <div class="rivalry-teams">
+        <div class="rivalry-team">
+          <div class="rivalry-team-emoji">🦖</div>
+          <div class="rivalry-team-name">Tyrant Lizard FC<br><small>(Nabil)</small></div>
+        </div>
+        <div class="rivalry-score">
+          <span>—</span>
+          <span>–</span>
+          <span>—</span>
+        </div>
+        <div class="rivalry-team">
+          <div class="rivalry-team-emoji">🐯</div>
+          <div class="rivalry-team-name">Tiger Winners<br><small>(Nader)</small></div>
+        </div>
+      </div>
+      <div class="rivalry-bar-wrap">
+        <div class="rivalry-bar-a" style="width:50%"></div>
+        <div class="rivalry-bar-b" style="width:50%"></div>
+      </div>
+      <div class="rivalry-labels">
+        <span>🦖 Nabil</span>
+        <span>Nader 🐯</span>
+      </div>
+    </div>
+
+    <div class="rivalry-card">
+      <div class="rivalry-header">New Rivalry · 2026 Season</div>
+      <div class="rivalry-teams">
+        <div class="rivalry-team">
+          <div class="rivalry-team-emoji">🦁</div>
+          <div class="rivalry-team-name">Red Lion FC<br><small>(Wajih)</small></div>
+        </div>
+        <div class="rivalry-score">
+          <span>—</span>
+          <span>–</span>
+          <span>—</span>
+        </div>
+        <div class="rivalry-team">
+          <div class="rivalry-team-emoji">🐯</div>
+          <div class="rivalry-team-name">Tiger Winners<br><small>(Nader)</small></div>
+        </div>
+      </div>
+      <div class="rivalry-bar-wrap">
+        <div class="rivalry-bar-a" style="width:50%"></div>
+        <div class="rivalry-bar-b" style="width:50%"></div>
+      </div>
+      <div class="rivalry-labels">
+        <span>🦁 Wajih</span>
+        <span>Nader 🐯</span>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<hr class="sep">
+
+<!-- COUNTDOWN -->
+<div id="countdown" class="section">
+  <div class="eyebrow">Mark Your Calendar</div>
+  <div class="section-header">
+    <h2>Next Match</h2>
+    <div class="line"></div>
+  </div>
+  <div class="countdown-box">
+    <div style="font-size:2.5rem;margin-bottom:1rem;">⚽</div>
+    <div class="countdown-match">🦖 Tyrant Lizard FC vs 🦁 Red Lion FC — Round 1</div>
+    <div class="countdown-date">Saturday, July 4, 2026 · 5:00 PM</div>
+    <div class="countdown-timer">
+      <div class="countdown-unit">
+        <span class="countdown-num" id="cd-days">--</span>
+        <div class="countdown-lbl">Days</div>
+      </div>
+      <div class="countdown-unit">
+        <span class="countdown-num" id="cd-hours">--</span>
+        <div class="countdown-lbl">Hours</div>
+      </div>
+      <div class="countdown-unit">
+        <span class="countdown-num" id="cd-mins">--</span>
+        <div class="countdown-lbl">Minutes</div>
+      </div>
+      <div class="countdown-unit">
+        <span class="countdown-num" id="cd-secs">--</span>
+        <div class="countdown-lbl">Seconds</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<hr class="sep">
+
+<!-- GALLERY -->
+<div id="gallery" class="section">
+  <div class="eyebrow">Moments & Memories</div>
+  <div class="section-header">
+    <h2>Photo Gallery</h2>
+    <div class="line"></div>
+  </div>
+  <div class="gallery-grid">
+    <div class="gallery-item">
+      <div class="gallery-placeholder">🏆<p>2024 Champion</p></div>
+      <div class="gallery-caption"><strong>First Ever Champion</strong>Nabil lifts the inaugural title · 2024</div>
+    </div>
+    <div class="gallery-item">
+      <div class="gallery-placeholder">🦅<p>2025 Dominance</p></div>
+      <div class="gallery-caption"><strong>14-Round Rampage</strong>United Phoenix FC's legendary 2025 campaign</div>
+    </div>
+    <div class="gallery-item">
+      <div class="gallery-placeholder">🦁<p>The Upset</p></div>
+      <div class="gallery-caption"><strong>Red Lion Strikes Back</strong>Wajih steals R9 & R12 in 2025</div>
+    </div>
+    <div class="gallery-item">
+      <div class="gallery-placeholder">📸<p>Add a photo</p></div>
+      <div class="gallery-caption"><strong>Your Memory Here</strong>Upload photos from the matches</div>
+    </div>
+    <div class="gallery-item">
+      <div class="gallery-placeholder">📸<p>Add a photo</p></div>
+      <div class="gallery-caption"><strong>Your Memory Here</strong>Upload photos from the matches</div>
+    </div>
+    <div class="gallery-item">
+      <div class="gallery-placeholder">📸<p>Add a photo</p></div>
+      <div class="gallery-caption"><strong>Your Memory Here</strong>Upload photos from the matches</div>
+    </div>
+  </div>
+  <div style="text-align:center;margin-top:1.5rem;">
+    <label class="gallery-upload-btn" for="photo-upload">
+      📷 Upload a Photo
+      <input id="photo-upload" type="file" accept="image/*" style="display:none" onchange="handlePhotoUpload(event)">
+    </label>
+  </div>
+</div>
+
+<hr class="sep">
+
+<!-- BANTER WALL -->
+<div id="banter" class="section">
+  <div class="eyebrow">Pre-Match Trash Talk</div>
+  <div class="section-header">
+    <h2>Banter Wall</h2>
+    <div class="line"></div>
+  </div>
+  <div class="banter-grid">
+
+    <div class="banter-card">
+      <div class="banter-quote">"</div>
+      <div class="banter-text">Two cups and I'm just getting started. You lot are playing for second place.</div>
+      <div class="banter-author">Nabil <span>· Tyrant Lizard FC 🦖</span></div>
+    </div>
+
+    <div class="banter-card">
+      <div class="banter-quote">"</div>
+      <div class="banter-text">I beat him twice in 2025. People forget that. The Lion is awake this year.</div>
+      <div class="banter-author">Wajih <span>· Red Lion FC 🦁</span></div>
+    </div>
+
+    <div class="banter-card">
+      <div class="banter-quote">"</div>
+      <div class="banter-text">I may or may not show up. But if I do, nobody's ready for the Tigers.</div>
+      <div class="banter-author">Nader <span>· Tiger Winners 🐯</span></div>
+    </div>
+
+    <div class="banter-card" style="border-style:dashed;cursor:pointer;" onclick="addBanter()">
+      <div class="banter-quote" style="opacity:0.2">"</div>
+      <div class="banter-text" style="color:var(--text-muted)">Got something to say? Click to add your own trash talk to the wall...</div>
+      <div class="banter-author" style="color:var(--text-muted)">+ Add Quote</div>
+    </div>
+
+  </div>
+</div>
+
+<hr class="sep">
 <div id="history" class="section">
   <div class="eyebrow">The Story So Far</div>
   <div class="section-header">
@@ -810,22 +1516,94 @@
 </footer>
 
 <script>
-  // Tab switching — generic
+  // ── Tab switching ──
   document.querySelectorAll('.tabs').forEach(tabGroup => {
     tabGroup.querySelectorAll('.tab').forEach(tab => {
       tab.addEventListener('click', () => {
         const targetId = tab.dataset.tab;
-        // Deactivate all in this group
         tabGroup.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-        // Find sibling panels (next sibling container)
         const panels = tabGroup.parentElement.querySelectorAll('.tab-panel');
         panels.forEach(p => p.classList.remove('active'));
-        // Activate chosen
         tab.classList.add('active');
         document.getElementById(targetId).classList.add('active');
       });
     });
   });
+
+  // ── Countdown Timer ──
+  function updateCountdown() {
+    const target = new Date('2026-07-04T17:00:00');
+    const now = new Date();
+    const diff = target - now;
+    if (diff <= 0) {
+      document.getElementById('cd-days').textContent = '00';
+      document.getElementById('cd-hours').textContent = '00';
+      document.getElementById('cd-mins').textContent = '00';
+      document.getElementById('cd-secs').textContent = '00';
+      return;
+    }
+    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const mins = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+    const secs = Math.floor((diff % (1000 * 60)) / 1000);
+    document.getElementById('cd-days').textContent = String(days).padStart(2, '0');
+    document.getElementById('cd-hours').textContent = String(hours).padStart(2, '0');
+    document.getElementById('cd-mins').textContent = String(mins).padStart(2, '0');
+    document.getElementById('cd-secs').textContent = String(secs).padStart(2, '0');
+  }
+  updateCountdown();
+  setInterval(updateCountdown, 1000);
+
+  // ── Photo Upload ──
+  function handlePhotoUpload(event) {
+    const file = event.target.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      const grid = document.querySelector('.gallery-grid');
+      // Find first placeholder slot
+      const slots = grid.querySelectorAll('.gallery-item');
+      let target = null;
+      slots.forEach(slot => {
+        if (!target && slot.querySelector('.gallery-placeholder p') && slot.querySelector('.gallery-placeholder p').textContent === 'Add a photo') {
+          target = slot;
+        }
+      });
+      if (!target) {
+        // Add new slot
+        target = document.createElement('div');
+        target.className = 'gallery-item';
+        grid.appendChild(target);
+      }
+      const caption = prompt('Caption for this photo? (e.g. "R1 · Nabil scores the first goal")') || 'Match memory';
+      target.innerHTML = `
+        <div style="height:180px;overflow:hidden;">
+          <img src="${e.target.result}" style="width:100%;height:100%;object-fit:cover;">
+        </div>
+        <div class="gallery-caption"><strong>New Memory</strong>${caption}</div>
+      `;
+    };
+    reader.readAsDataURL(file);
+  }
+
+  // ── Banter Wall ──
+  function addBanter() {
+    const authors = ['Nabil · Tyrant Lizard FC 🦖', 'Wajih · Red Lion FC 🦁', 'Nader · Tiger Winners 🐯'];
+    const text = prompt('Drop your trash talk:');
+    if (!text || !text.trim()) return;
+    const author = prompt('Who said this?\n1. Nabil\n2. Wajih\n3. Nader\n(type 1, 2 or 3)');
+    const authorLabel = authors[parseInt(author) - 1] || 'Anonymous';
+    const grid = document.querySelector('.banter-grid');
+    const addCard = grid.lastElementChild;
+    const newCard = document.createElement('div');
+    newCard.className = 'banter-card';
+    newCard.innerHTML = `
+      <div class="banter-quote">"</div>
+      <div class="banter-text">${text.trim()}</div>
+      <div class="banter-author">${authorLabel}</div>
+    `;
+    grid.insertBefore(newCard, addCard);
+  }
 </script>
 </body>
 </html>
