@@ -5,62 +5,92 @@
   <title>World Cup 2026 – Family Edition</title>
   <style>
     body {
-      font-family: Arial, sans-serif;
-      background: #f4f4f4;
+      font-family: 'Segoe UI', Arial, sans-serif;
+      background: #f9fafc;
       margin: 0;
       padding: 0;
+      color: #333;
     }
     header {
-      background: #333;
+      background: linear-gradient(135deg, #1e3c72, #2a5298);
       color: #fff;
-      padding: 20px;
+      padding: 40px 20px;
       text-align: center;
     }
+    header h1 {
+      margin: 0;
+      font-size: 2.5em;
+    }
+    header p {
+      margin-top: 10px;
+      font-size: 1.2em;
+    }
     nav {
-      background: #444;
-      padding: 10px;
+      background: #222;
+      padding: 15px;
       text-align: center;
     }
     nav a {
       color: #fff;
-      margin: 0 15px;
+      margin: 0 20px;
       text-decoration: none;
       font-weight: bold;
+      transition: color 0.3s;
     }
     nav a:hover {
-      text-decoration: underline;
+      color: #ffcc00;
     }
     section {
-      padding: 20px;
+      padding: 40px 20px;
+      max-width: 1000px;
+      margin: auto;
     }
     h2 {
-      color: #333;
+      color: #2a5298;
+      border-bottom: 2px solid #eee;
+      padding-bottom: 10px;
     }
     table {
       width: 100%;
       border-collapse: collapse;
       margin: 20px 0;
       background: #fff;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
     }
     table, th, td {
-      border: 1px solid #ccc;
+      border: 1px solid #ddd;
+    }
+    th {
+      background: #2a5298;
+      color: #fff;
     }
     th, td {
-      padding: 10px;
+      padding: 12px;
       text-align: center;
     }
     .winner {
       background: #c8e6c9;
+      font-weight: bold;
     }
     .tie {
       background: #ffe0b2;
+      font-weight: bold;
+    }
+    ul {
+      line-height: 1.8;
     }
     footer {
-      background: #333;
+      background: #222;
       color: #fff;
       text-align: center;
+      padding: 20px;
+      margin-top: 40px;
+    }
+    .highlight {
+      background: #fffae6;
+      border-left: 5px solid #ffcc00;
       padding: 15px;
-      margin-top: 20px;
+      margin: 20px 0;
     }
   </style>
 </head>
@@ -68,13 +98,15 @@
 
 <header>
   <h1>World Cup 2026 – Family Edition</h1>
-  <p>Started in 2024, continuing the tradition!</p>
+  <p>Celebrating our tradition since 2024</p>
 </header>
 
 <nav>
   <a href="#matches">Matches</a>
   <a href="#rules">Rules</a>
   <a href="#standings">Standings</a>
+  <a href="#history">History</a>
+  <a href="#players">Players</a>
   <a href="#about">About</a>
 </nav>
 
@@ -108,18 +140,18 @@
       <td class="winner">TBD</td>
       <td>TBD</td>
     </tr>
-    <!-- Continue rounds as needed -->
+    <!-- Add more rounds -->
   </table>
 </section>
 
 <section id="rules">
   <h2>World Cup Rules</h2>
   <ul>
-    <li>2 Teams play against the same opponent for 2 consecutive rounds.</li>
-    <li>The 3rd team not mentioned acts as goalkeeper.</li>
+    <li>Teams face the same opponent for 2 consecutive rounds.</li>
+    <li>The 3rd team not playing acts as goalkeeper.</li>
     <li>Each save, block, or protection = 1 point.</li>
     <li>First goal scored = 1 point.</li>
-    <li>5 saves = 1 point bonus.</li>
+    <li>5 saves = 1 bonus point.</li>
     <li>Penalty save = 1 point.</li>
     <li>Red and yellow cards can be given.</li>
     <li>Standard football rules apply.</li>
@@ -156,9 +188,48 @@
   </table>
 </section>
 
+<section id="history">
+  <h2>World Cup History</h2>
+  <div class="highlight">
+    <p><strong>2024:</strong> First edition with 2 teams. Winner: You.</p>
+    <p><strong>2025:</strong> Expanded to 3 brothers. Winner: You again.</p>
+    <p><strong>2026:</strong> Upcoming edition with new excitement and challenges.</p>
+  </div>
+</section>
+
+<section id="players">
+  <h2>Player Stats</h2>
+  <table>
+    <tr>
+      <th>Player</th>
+      <th>Team</th>
+      <th>Role</th>
+      <th>Highlights</th>
+    </tr>
+    <tr>
+      <td>Nader</td>
+      <td>Red Lion FC</td>
+      <td>Goalie</td>
+      <td>Strong saves in 2025</td>
+    </tr>
+    <tr>
+      <td>Nabil</td>
+      <td>Tiger Winners</td>
+      <td>Goalie</td>
+      <td>Penalty saves in Round 2</td>
+    </tr>
+    <tr>
+      <td>Wajih</td>
+      <td>Tyrant Lizard FC</td>
+      <td>Goalie</td>
+      <td>Defensive wall in Round 3</td>
+    </tr>
+  </table>
+</section>
+
 <section id="about">
   <h2>About</h2>
-  <p>This World Cup tradition started in 2024 with two brothers. In 2025, a third brother joined, making the competition even more exciting. The 2026 edition continues the fun with custom rules, family rivalry, and lots of laughs!</p>
+  <p>This World Cup tradition started in 2024 with two brothers. In 2025, a third brother joined, making the competition even more exciting. The 2026 edition continues the fun with custom rules, family rivalry, and lots of laughs. Each year brings new highlights, unforgettable saves, and legendary goals!</p>
 </section>
 
 <footer>
