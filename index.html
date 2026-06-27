@@ -1617,6 +1617,22 @@
 </div>
 
 <!-- FOOTER -->
+<hr class="sep">
+
+<!-- TROPHY -->
+<div id="trophy" class="section">
+  <div class="eyebrow">The Prize</div>
+  <div class="section-header">
+    <h2>The Trophy</h2>
+    <div class="line"></div>
+  </div>
+  <div style="background:var(--bg-mid);border:1px solid var(--border);border-radius:16px;overflow:hidden;position:relative;">
+    <div style="text-align:center;padding:12px 0 4px;color:var(--gold);font-size:11px;letter-spacing:3px;text-transform:uppercase;opacity:0.7;">Drag to rotate · Scroll to zoom</div>
+    <canvas id="trophy-canvas" style="display:block;width:100%;height:480px;cursor:grab;"></canvas>
+  </div>
+  <p style="color:var(--text-muted);font-size:0.82rem;margin-top:1rem;text-align:center;font-style:italic;">* Custom-designed World Cup trophy. One day this gets 3D printed. 🏆</p>
+</div>
+
 <footer>
   Made with ⚽ · World Cup · <span>Est. 2024</span> · Season 3 underway
 </footer>
@@ -1725,6 +1741,179 @@
     `;
     grid.insertBefore(newCard, addCard);
   }
+</script>
+<!-- THREE.JS TROPHY -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script>
+(function() {
+  const canvas = document.getElementById('trophy-canvas');
+  if (!canvas) return;
+
+  const W = canvas.parentElement.offsetWidth || 680;
+  const H = 480;
+  canvas.width = W;
+  canvas.height = H;
+
+  let renderer;
+  try {
+    renderer = new THREE.WebGLRenderer({ canvas, antialias: true });
+  } catch(e) { return; }
+
+  renderer.setSize(W, H);
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+  renderer.shadowMap.enabled = true;
+  renderer.toneMapping = THREE.ACESFilmicToneMapping;
+  renderer.toneMappingExposure = 1.3;
+  renderer.setClearColor(0x0f2314, 1);
+
+  const scene = new THREE.Scene();
+  const camera = new THREE.PerspectiveCamera(40, W / H, 0.1, 100);
+  camera.position.set(0, 1.5, 9);
+  camera.lookAt(0, 1, 0);
+
+  const matGold     = new THREE.MeshStandardMaterial({ color: 0xFFD700, metalness: 0.95, roughness: 0.1 });
+  const matGoldDark = new THREE.MeshStandardMaterial({ color: 0xB8860B, metalness: 0.9,  roughness: 0.2 });
+  const matChrome   = new THREE.MeshStandardMaterial({ color: 0xE8E8D0, metalness: 1.0,  roughness: 0.05 });
+  const matGreen    = new THREE.MeshStandardMaterial({ color: 0x003d1f, metalness: 0.2,  roughness: 0.7 });
+  const matBase     = new THREE.MeshStandardMaterial({ color: 0x1a1a1a, metalness: 0.3,  roughness: 0.5 });
+
+  const group = new THREE.Group();
+
+  function addLathe(pts, mat, segs) {
+    segs = segs || 72;
+    const v = pts.map(function(p) { return new THREE.Vector2(p[0], p[1]); });
+    const g = new THREE.LatheGeometry(v, segs);
+    g.computeVertexNormals();
+    const m = new THREE.Mesh(g, mat);
+    m.castShadow = true;
+    m.receiveShadow = true;
+    group.add(m);
+    return m;
+  }
+
+  // Base
+  addLathe([[0,0],[2.2,0],[2.2,0.15],[2.0,0.22],[1.95,0.28]], matBase);
+  addLathe([[1.9,0.28],[2.1,0.28],[2.1,0.38],[1.9,0.38]], matGold);
+  // Pedestal
+  addLathe([[0,0.38],[1.7,0.38],[1.7,0.52],[1.45,0.6],[0.9,0.65],[0.75,0.72]], matGoldDark);
+  // Lower stem
+  addLathe([[0.75,0.72],[0.65,0.85],[0.55,1.1],[0.5,1.4],[0.47,1.62]], matGold);
+  // Knot
+  addLathe([[0.47,1.62],[0.65,1.72],[0.82,1.85],[0.75,2.0],[0.55,2.08],[0.47,2.15]], matGoldDark);
+  // Upper stem
+  addLathe([[0.47,2.15],[0.45,2.4],[0.5,2.65],[0.6,2.8],[0.72,2.92]], matGold);
+  // Cup bowl
+  addLathe([[0.72,2.92],[0.8,3.05],[1.0,3.2],[1.25,3.38],[1.5,3.58],[1.68,3.78],[1.74,3.98],[1.72,4.18],[1.62,4.32],[1.48,4.4],[1.3,4.45],[1.1,4.46]], matGold);
+  // Cup inner
+  addLathe([[0,4.46],[0.25,4.45],[0.6,4.4],[0.88,4.3],[1.05,4.18],[1.15,4.02],[1.18,3.85],[1.1,3.68],[0.92,3.5],[0.74,3.28],[0.62,3.05],[0.56,2.92]], matGoldDark);
+  // Top rim
+  addLathe([[1.05,4.45],[1.32,4.45],[1.32,4.56],[1.05,4.56]], matChrome);
+  // Engraving band
+  addLathe([[0.74,3.02],[1.52,3.02],[1.52,3.16],[0.74,3.16]], matChrome);
+
+  // Stars
+  for (var i = 0; i < 6; i++) {
+    var a = (i / 6) * Math.PI * 2;
+    var star = new THREE.Mesh(new THREE.SphereGeometry(0.075, 8, 8), matChrome);
+    star.position.set(Math.cos(a) * 1.18, 4.62, Math.sin(a) * 1.18);
+    group.add(star);
+  }
+
+  // Handles
+  function makeHandle(side) {
+    var pts = [
+      new THREE.Vector3(side * 1.68, 3.78, 0),
+      new THREE.Vector3(side * 2.1,  3.85, 0),
+      new THREE.Vector3(side * 2.32, 4.0,  0),
+      new THREE.Vector3(side * 2.25, 4.2,  0),
+      new THREE.Vector3(side * 1.95, 4.32, 0),
+      new THREE.Vector3(side * 1.6,  4.38, 0),
+    ];
+    var curve = new THREE.CatmullRomCurve3(pts);
+    var geo = new THREE.TubeGeometry(curve, 32, 0.1, 10, false);
+    group.add(new THREE.Mesh(geo, matGold));
+    [[side*1.68,3.78,0],[side*1.6,4.38,0]].forEach(function(p) {
+      var cap = new THREE.Mesh(new THREE.SphereGeometry(0.1, 10, 10), matGold);
+      cap.position.set(p[0], p[1], p[2]);
+      group.add(cap);
+    });
+  }
+  makeHandle(1);
+  makeHandle(-1);
+
+  // Crest
+  var crestRim = new THREE.Mesh(new THREE.BoxGeometry(0.73, 0.6, 0.02), matGoldDark);
+  crestRim.position.set(0, 3.6, 1.53); crestRim.rotation.x = -0.15;
+  group.add(crestRim);
+  var crestBg = new THREE.Mesh(new THREE.BoxGeometry(0.65, 0.52, 0.04), matGreen);
+  crestBg.position.set(0, 3.6, 1.54); crestBg.rotation.x = -0.15;
+  group.add(crestBg);
+
+  // Floor
+  var floor = new THREE.Mesh(
+    new THREE.CircleGeometry(4, 64),
+    new THREE.MeshStandardMaterial({ color: 0x060e07, metalness: 0.1, roughness: 0.9 })
+  );
+  floor.rotation.x = -Math.PI / 2;
+  floor.position.y = -2.2;
+  floor.receiveShadow = true;
+  scene.add(floor);
+
+  group.position.y = -2.2;
+  scene.add(group);
+
+  // Lights
+  scene.add(new THREE.AmbientLight(0xffffff, 0.3));
+  var key = new THREE.DirectionalLight(0xfff8e0, 4);
+  key.position.set(4, 10, 6);
+  key.castShadow = true;
+  key.shadow.mapSize.set(2048, 2048);
+  scene.add(key);
+  var fill = new THREE.DirectionalLight(0x80ffaa, 1.2);
+  fill.position.set(-5, 3, 2);
+  scene.add(fill);
+  var back = new THREE.DirectionalLight(0xffd700, 2.5);
+  back.position.set(0, 6, -7);
+  scene.add(back);
+  scene.add(new THREE.PointLight(0x004422, 2, 10)).position.set(0, -0.5, 3);
+
+  var pmrem = new THREE.PMREMGenerator(renderer);
+  scene.environment = pmrem.fromScene(new THREE.RoomEnvironment()).texture;
+
+  // Controls
+  var isDrag = false, lastX = 0, velY = 0.008, velX = 0, rotY = 0, rotX = 0.05;
+
+  canvas.addEventListener('mousedown', function(e) { isDrag=true; lastX=e.clientX; velX=0; velY=0; canvas.style.cursor='grabbing'; });
+  window.addEventListener('mouseup', function() { isDrag=false; canvas.style.cursor='grab'; });
+  window.addEventListener('mousemove', function(e) {
+    if (!isDrag) return;
+    velY = (e.clientX - lastX) * 0.009;
+    lastX = e.clientX;
+  });
+  canvas.addEventListener('touchstart', function(e) { isDrag=true; lastX=e.touches[0].clientX; velX=0; velY=0; }, { passive: true });
+  canvas.addEventListener('touchend', function() { isDrag=false; });
+  canvas.addEventListener('touchmove', function(e) {
+    if (!isDrag) return;
+    velY = (e.touches[0].clientX - lastX) * 0.012;
+    lastX = e.touches[0].clientX;
+  }, { passive: true });
+  canvas.addEventListener('wheel', function(e) {
+    camera.position.z = Math.max(4, Math.min(13, camera.position.z + e.deltaY * 0.012));
+    e.preventDefault();
+  }, { passive: false });
+
+  function animate() {
+    requestAnimationFrame(animate);
+    if (!isDrag) { velY *= 0.97; velX *= 0.93; }
+    rotY += velY; rotX += velX;
+    rotX = Math.max(-0.45, Math.min(0.45, rotX));
+    group.rotation.y = rotY;
+    group.rotation.x = rotX;
+    back.intensity = 2.2 + Math.sin(Date.now() * 0.001) * 0.5;
+    renderer.render(scene, camera);
+  }
+  animate();
+})();
 </script>
 </body>
 </html>
