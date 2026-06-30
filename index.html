@@ -9,18 +9,18 @@
     :root {
       --gold: #FFD700;
       --gold-dim: #c9a800;
-      --green: #006B3F;
-      --green-mid: #00512f;
-      --green-light: #007a47;
+      --green: #0033A0;
+      --green-mid: #002677;
+      --green-light: #003fc4;
       --red: #C8102E;
       --red-mid: #a00d24;
-      --bg: #0a1a0e;
-      --bg-mid: #0f2314;
-      --bg-light: #163320;
-      --text: #f0f4f0;
-      --text-muted: #7a9e84;
-      --border: rgba(255,215,0,0.18);
-      --border-green: rgba(0,107,63,0.4);
+      --bg: #050a1a;
+      --bg-mid: #0a1530;
+      --bg-light: #122044;
+      --text: #f0f2f8;
+      --text-muted: #7d8bb8;
+      --border: rgba(255,215,0,0.2);
+      --border-green: rgba(0,51,160,0.5);
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -38,7 +38,7 @@
       position: sticky;
       top: 0;
       z-index: 100;
-      background: rgba(10,26,14,0.97);
+      background: rgba(5,10,26,0.97);
       backdrop-filter: blur(10px);
       border-bottom: 2px solid var(--gold);
       display: flex;
@@ -72,7 +72,7 @@
       position: relative;
       text-align: center;
       padding: 80px 2rem 60px;
-      background: radial-gradient(ellipse at 50% 0%, #003d1f 0%, var(--bg) 70%);
+      background: radial-gradient(ellipse at 50% 0%, #0a2266 0%, var(--bg) 70%);
       overflow: hidden;
     }
     .hero::before {
@@ -714,7 +714,7 @@
       align-items: center;
       justify-content: center;
       font-size: 2.5rem;
-      background: linear-gradient(135deg, #0f2314, #163320);
+      background: linear-gradient(135deg, #0a1530, #122044);
       color: var(--text-muted);
       gap: 0.5rem;
     }
@@ -811,7 +811,7 @@
       position: fixed;
       top: 60px;
       left: 0; right: 0;
-      background: rgba(10,26,14,0.98);
+      background: rgba(5,10,26,0.98);
       backdrop-filter: blur(12px);
       border-bottom: 2px solid var(--gold);
       z-index: 99;
@@ -1629,8 +1629,12 @@
   <div style="background:var(--bg-mid);border:1px solid var(--border);border-radius:16px;overflow:hidden;position:relative;">
     <div style="text-align:center;padding:12px 0 4px;color:var(--gold);font-size:11px;letter-spacing:3px;text-transform:uppercase;opacity:0.7;">Drag to rotate · Scroll to zoom</div>
     <canvas id="trophy-canvas" style="display:block;width:100%;height:480px;cursor:grab;"></canvas>
+    <div id="trophy-fallback" style="display:none;height:480px;align-items:center;justify-content:center;flex-direction:column;gap:1rem;color:var(--gold);text-align:center;padding:0 2rem;">
+      <div style="font-size:3rem;">🏆</div>
+      <div style="font-size:0.9rem;color:var(--text-muted);">3D view couldn't load (likely a network/ad-blocker issue). Try refreshing the page.</div>
+    </div>
   </div>
-  <p style="color:var(--text-muted);font-size:0.82rem;margin-top:1rem;text-align:center;font-style:italic;">* Custom-designed World Cup trophy. One day this gets 3D printed. 🏆</p>
+  <p style="color:var(--text-muted);font-size:0.82rem;margin-top:1rem;text-align:center;font-style:italic;">* Designed for the family that never stops competing. 🏆</p>
 </div>
 
 <footer>
@@ -1743,12 +1747,24 @@
   }
 </script>
 <!-- THREE.JS TROPHY -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="https://unpkg.com/three@0.128.0/build/three.min.js" onerror="this.onerror=null;this.src='https://cdn.jsdelivr.net/npm/three@0.128.0/build/three.min.js';"></script>
 <script>
-(function() {
+function initTrophy(retriesLeft) {
   const canvas = document.getElementById('trophy-canvas');
+  const fallback = document.getElementById('trophy-fallback');
   if (!canvas) return;
 
+  if (typeof THREE === 'undefined') {
+    if (retriesLeft > 0) {
+      setTimeout(function() { initTrophy(retriesLeft - 1); }, 400);
+      return;
+    }
+    canvas.style.display = 'none';
+    if (fallback) fallback.style.display = 'flex';
+    return;
+  }
+
+  try {
   const W = canvas.parentElement.offsetWidth || 680;
   const H = 480;
   canvas.width = W;
@@ -1757,14 +1773,18 @@
   let renderer;
   try {
     renderer = new THREE.WebGLRenderer({ canvas, antialias: true });
-  } catch(e) { return; }
+  } catch(e) {
+    canvas.style.display = 'none';
+    if (fallback) fallback.style.display = 'flex';
+    return;
+  }
 
   renderer.setSize(W, H);
   renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
   renderer.shadowMap.enabled = true;
   renderer.toneMapping = THREE.ACESFilmicToneMapping;
   renderer.toneMappingExposure = 1.3;
-  renderer.setClearColor(0x0f2314, 1);
+  renderer.setClearColor(0x0a1530, 1);
 
   const scene = new THREE.Scene();
   const camera = new THREE.PerspectiveCamera(40, W / H, 0.1, 100);
@@ -1774,7 +1794,7 @@
   const matGold     = new THREE.MeshStandardMaterial({ color: 0xFFD700, metalness: 0.95, roughness: 0.1 });
   const matGoldDark = new THREE.MeshStandardMaterial({ color: 0xB8860B, metalness: 0.9,  roughness: 0.2 });
   const matChrome   = new THREE.MeshStandardMaterial({ color: 0xE8E8D0, metalness: 1.0,  roughness: 0.05 });
-  const matGreen    = new THREE.MeshStandardMaterial({ color: 0x003d1f, metalness: 0.2,  roughness: 0.7 });
+  const matGreen    = new THREE.MeshStandardMaterial({ color: 0x0033A0, metalness: 0.2,  roughness: 0.7 });
   const matBase     = new THREE.MeshStandardMaterial({ color: 0x1a1a1a, metalness: 0.3,  roughness: 0.5 });
 
   const group = new THREE.Group();
@@ -1869,16 +1889,15 @@
   key.castShadow = true;
   key.shadow.mapSize.set(2048, 2048);
   scene.add(key);
-  var fill = new THREE.DirectionalLight(0x80ffaa, 1.2);
+  var fill = new THREE.DirectionalLight(0x6699ff, 1.2);
   fill.position.set(-5, 3, 2);
   scene.add(fill);
   var back = new THREE.DirectionalLight(0xffd700, 2.5);
   back.position.set(0, 6, -7);
   scene.add(back);
-  scene.add(new THREE.PointLight(0x004422, 2, 10)).position.set(0, -0.5, 3);
-
-  var pmrem = new THREE.PMREMGenerator(renderer);
-  scene.environment = pmrem.fromScene(new THREE.RoomEnvironment()).texture;
+  var bottomLight = new THREE.PointLight(0x002277, 2, 10);
+  bottomLight.position.set(0, -0.5, 3);
+  scene.add(bottomLight);
 
   // Controls
   var isDrag = false, lastX = 0, velY = 0.008, velX = 0, rotY = 0, rotX = 0.05;
@@ -1913,7 +1932,13 @@
     renderer.render(scene, camera);
   }
   animate();
-})();
+  } catch(e) {
+    canvas.style.display = 'none';
+    if (fallback) fallback.style.display = 'flex';
+    console.error('Trophy render error:', e);
+  }
+}
+initTrophy(15);
 </script>
 </body>
 </html>
